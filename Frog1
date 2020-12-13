@@ -1,0 +1,35 @@
+//https://atcoder.jp/contests/dp/tasks/dp_a
+
+#include<bits/stdc++.h>
+using namespace std;
+#define gcd(a,b) __gcd(a,b)
+#define lcm(a,b) (a*b)/gcd(a,b)
+#define p pair<long long,long long>
+#define endl '\n' 
+#define iof  freopen("input.txt","r",stdin);freopen("output.txt","w",stdout);
+#define pi acos(-1)
+int fx[]={0,0,1,-1,1,1,-1,-1};
+int fy[]={1,-1,0,0,-1,1,-1,1};
+const int mxn=1e5+7;
+vector<long long>dp(mxn,-1);
+vector<long long>vec(mxn,0);
+
+long long func(long long n)
+{
+	if(dp[n]!=-1)return dp[n];
+	if(n==1)return 0;
+	if(n==2)return abs(vec[2]-vec[1]);
+	return dp[n]=min(abs(vec[n]-vec[n-1])+func(n-1),abs(vec[n]-vec[n-2])+func(n-2));
+}
+int main(int argc, char const *argv[])
+{
+    ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(0);
+    long long n;
+    cin>>n;
+    for(long long i=1;i<=n;i++)
+    {
+    	cin>>vec[i];
+    }
+    long long ans=func(n);
+    cout<<ans<<endl;
+}
