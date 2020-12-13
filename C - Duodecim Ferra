@@ -1,0 +1,42 @@
+//https://atcoder.jp/contests/abc185/tasks/abc185_c
+#include<bits/stdc++.h>
+using namespace std;
+#define gcd(a,b) __gcd(a,b)
+
+
+#define lcm(a,b) (a*b)/gcd(a,b)
+#define p pair<long long,long long>
+#define endl '\n' 
+#define iof  freopen("input.txt","r",stdin);freopen("output.txt","w",stdout);
+#define pi acos(-1)
+int fx[]={0,0,1,-1,1,1,-1,-1};
+int fy[]={1,-1,0,0,-1,1,-1,1};
+const long long mxn=1e18+7;
+long long dp[205][15];
+ long long num;
+long long func(long long remain,long long cut)
+{
+	
+	if(remain<=0)return 0;
+	if(cut==11)return 1;
+	if(dp[remain][cut]!=-1)return dp[remain][cut];
+	long long &val=dp[remain][cut];
+	long long ways=0;
+	for(long long i=1;i<num;i++)
+	{
+		ways+=func(remain-i,cut+1);
+	}
+
+	return val=ways;
+}
+
+int main(int argc, char const *argv[])
+{
+    ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(0);
+   
+    cin>>num;
+    memset(dp,-1,sizeof(dp));
+    long long ans=func(num,0);
+    
+    cout<<ans<<endl;
+}
