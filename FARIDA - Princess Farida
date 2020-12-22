@@ -1,0 +1,41 @@
+//https://www.spoj.com/problems/FARIDA/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define gcd(a,b) __gcd(a,b)
+#define lcm(a,b) (a*b)/gcd(a,b)
+#define p pair<long long,long long>
+#define endl '\n' 
+#define iof  freopen("input.txt","r",stdin);freopen("output.txt","w",stdout);
+#define pi acos(-1)
+int fx[]={0,0,1,-1,1,1,-1,-1};
+int fy[]={1,-1,0,0,-1,1,-1,1};
+const int mxn=1e9+7;
+
+int main(int argc, char const *argv[])
+{
+    ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(0);
+    long long test;
+    cin>>test;
+    for(long long i=1;i<=test;i++)
+    {
+        long long n;
+        cin>>n;
+        vector<vector<long long>>dp(n+5,vector<long long>(3,-1));
+        vector<long long>vec(n);
+        for(auto &j:vec)
+        {
+            cin>>j;
+        }
+        function<long long(long long,long long)>func=[&](long long pos,long long prev)
+        {
+            long long &val=dp[pos][prev];
+            if(pos>=n)return 0LL;
+            if(val!=-1)return val;
+            if(!prev)return val=max(func(pos+1LL,0LL),func(pos+1LL,1LL)+vec[pos]);
+            else return val=func(pos+1LL,0LL);
+        };
+        long long ans=func(0LL,0LL);
+        cout<<"Case "<<i<<": "<<ans<<endl;
+    }
+}
